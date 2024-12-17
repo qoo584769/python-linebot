@@ -154,9 +154,9 @@ def text_match(text):
   role_password = re.compile(r'\s+[\da-zA-Z_+-]+$')
 
   find_logon_text = role_logon.findall(text)
-  find_email_text = role_email.findall(find_logon_text[1]) if len(find_logon_text) > 1 else find_logon_text[0]
+  find_email_text = role_email.findall(find_logon_text[1]) if len(find_logon_text) >= 1 else find_logon_text[0]
 
-  email = find_logon_text[1]
+  email = find_logon_text[1] if len(find_logon_text) >= 1 else find_logon_text[0]
   username = role_username.findall(find_logon_text[1])
   password = find_logon_text[2] if len(role_password.findall(text)) else []
 
