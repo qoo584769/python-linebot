@@ -151,14 +151,12 @@ def text_match(text):
   role_logon = re.compile(r'([註冊帳號]+|[註冊]+|[\da-zA-Z+-_]+@[\da-zA-Z-]+\.[\da-zA-Z-]+|[\da-zA-Z_+-]+)')
   role_email= re.compile(r'[\da-zA-Z+-_]+@[\da-zA-Z-]+\.[\da-zA-Z-]+')
   role_username = re.compile(r'([\da-zA-Z+-_]+(?=@))')
-  role_password = re.compile(r'\s+[\da-zA-Z_+-]+$')
+  # role_password = re.compile(r'\s+[\da-zA-Z_+-]+$')
 
   find_logon_text = role_logon.findall(text)
   find_email_text = role_email.findall(find_logon_text[1]) if len(find_logon_text) > 1 else find_logon_text[0]
 
   email = find_logon_text[1] if len(find_logon_text) > 1 else find_logon_text[0]
-  username = role_username.findall(find_logon_text[1])
-  password = find_logon_text[2] if len(role_password.findall(text)) else []
 
   match text:
     case text if text.startswith('註冊') and not len(find_email_text):
@@ -171,6 +169,8 @@ def text_match(text):
       return '帳號已存在'
 
     case text if text.startswith('註冊'):
+      username = role_username.findall(find_logon_text[1])
+      password = find_logon_text[2]
       Member.create(username, password, email)
       return '註冊成功'
 
