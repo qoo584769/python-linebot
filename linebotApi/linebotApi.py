@@ -154,13 +154,11 @@ def text_match(text):
   role_password = re.compile(r'\s+[\da-zA-Z_+-]+$')
 
   find_logon_text = role_logon.findall(text)
-  find_email_text = role_email.findall(find_logon_text[1])
+  find_email_text = role_email.findall(find_logon_text[1]) if len(find_logon_text) > 1 else find_logon_text[0]
 
   email = find_logon_text[1]
   username = role_username.findall(find_logon_text[1])
   password = find_logon_text[2] if len(role_password.findall(text)) else []
-
-  reply_price = get_stock_info(text)
 
   match text:
     case text if text.startswith('註冊') and not len(find_email_text):
@@ -176,8 +174,8 @@ def text_match(text):
       Member.create(username, password, email)
       return '註冊成功'
 
-    case text if reply_price is not None :
-      return f"{text} 收盤價格: ${reply_price:.2f}"
+    case text if get_stock_info(text) is not None :
+      return f"{text} 收盤價格: ${get_stock_info(text):.2f}"
 
     case _:
       return '輸入訊息未觸發任何功能'
