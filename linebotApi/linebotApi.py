@@ -125,20 +125,21 @@ def create_rich_menu():
         print("Error creating rich menu:", e)
     
 def set_default_rich_menu(rich_menu_id):
-    try:
-        messaging_api.set_default_rich_menu(rich_menu_id)
-        print('建立預設快速選單成功')
-    except Exception as e:
-        print("建立預設快速選單發生錯誤：", e)
+  try:
+    messaging_api.set_default_rich_menu(rich_menu_id)
+    print('建立預設快速選單成功')
+  except Exception as e:
+    print("建立預設快速選單發生錯誤：", e)
 
 # 取得全部圖文列表並刪除
-def get_rich_menu_list(rich_menu_id):
+def get_rich_menu_list():
     rich_menu_list = messaging_api.get_rich_menu_list()
+    menu_list_len = len(rich_menu_list.richmenus)
     for index,rich_menu in enumerate(rich_menu_list.richmenus):
-        if index != len(rich_menu_list.richmenus)-1:
-            messaging_api.delete_rich_menu(rich_menu.rich_menu_id)
-        else:
-            messaging_api.set_default_rich_menu(rich_menu.rich_menu_id)
+      if index != menu_list_len - 1:
+        messaging_api.delete_rich_menu(rich_menu.rich_menu_id)
+      else:
+        create_rich_menu()
 
 def get_stock_info(symbol):
   stock = yf.Ticker(symbol)
@@ -237,4 +238,4 @@ def handle_message(event):
 def handle_follow(event):
     pass
 
-create_rich_menu()
+get_rich_menu_list()
