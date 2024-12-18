@@ -62,8 +62,6 @@ def callback():
 
 # 建立並上傳快速選單
 def create_rich_menu():
-    get_rich_menu_list()
-    
     rich_menu_size = RichMenuSize(width=2500, height=1686)
 
     # 定義快速選單的區域
