@@ -25,4 +25,4 @@ app.register_blueprint(member_bp, url_prefix='/api')
 app.register_blueprint(line_bot_bp, url_prefix='/linebot')
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug = False)

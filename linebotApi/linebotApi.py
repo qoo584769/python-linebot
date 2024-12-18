@@ -207,17 +207,19 @@ def handle_message(event):
       
       if text == '電影':
         url = os.getenv('MOVIE_REMOTE_URL')
+        
         messaging_api.push_message( PushMessageRequest(
         to=user_id,
         messages=[TextMessage(text='正在啟動電影API....')]
         )) 
+
         api_url = f'{url}/api/movie'
         response = requests.get(api_url)
 
         if response.status_code == 200: 
           reply_text = '啟動成功'
-         
-        reply_text = '啟動失敗'
+        else :
+          reply_text = '啟動失敗'
 
         reply_request = ReplyMessageRequest(
         reply_token=event.reply_token,
