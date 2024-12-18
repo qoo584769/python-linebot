@@ -73,11 +73,11 @@ def create_rich_menu():
         ),
         RichMenuArea(
             bounds=RichMenuBounds(x=834, y=0, width=833, height=843),
-            action=PostbackAction(label="Option 2",text="雷達回波圖", data="option2")
+            action=MessageAction(text="雷達回波圖")
         ),
         RichMenuArea(
             bounds=RichMenuBounds(x=1668, y=0, width=832, height=843),
-            action=PostbackAction(label="Option 3",text="電影", data="option3")
+            action=MessageAction(text="電影")
         ),
         RichMenuArea(
             bounds=RichMenuBounds(x=0, y=834, width=833, height=843),
