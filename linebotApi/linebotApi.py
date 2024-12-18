@@ -62,6 +62,8 @@ def callback():
 
 # 建立並上傳快速選單
 def create_rich_menu():
+    get_rich_menu_list()
+    
     rich_menu_size = RichMenuSize(width=2500, height=1686)
 
     # 定義快速選單的區域
@@ -127,6 +129,7 @@ def create_rich_menu():
 def set_default_rich_menu(rich_menu_id):
     try:
         messaging_api.set_default_rich_menu(rich_menu_id)
+        print('建立預設快速選單成功')
     except Exception as e:
         print("建立預設快速選單發生錯誤：", e)
 
