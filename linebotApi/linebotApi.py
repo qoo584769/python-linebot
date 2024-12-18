@@ -6,7 +6,7 @@ import time
 
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
-from flask import Flask,Blueprint, jsonify, request, abort
+from flask import Flask, Blueprint, jsonify, request, abort
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging import (
@@ -77,7 +77,7 @@ def create_rich_menu():
         ),
         RichMenuArea(
             bounds=RichMenuBounds(x=1668, y=0, width=832, height=843),
-            action=PostbackAction(label="Option 3",text="雷達回波", data="option3")
+            action=PostbackAction(label="Option 3",text="電影", data="option3")
         ),
         RichMenuArea(
             bounds=RichMenuBounds(x=0, y=834, width=833, height=843),
@@ -202,6 +202,26 @@ def handle_message(event):
         )
 
         messaging_api.reply_message(reply_request) 
+      
+      if text == '電影':
+        url = os.getenv('MOVIE_REMOTE_URL')
+        messaging_api.push_message( PushMessageRequest(
+        to=user_id,
+        messages=[TextMessage(text='正在啟動電影API....')]
+        )) 
+        api_url = f'{url}/api/movie'
+        response = requests.get(api_url)
+
+        if response.status_code == 200: 
+          reply_text = '啟動成功'
+         
+        reply_text = '啟動失敗'
+
+        reply_request = ReplyMessageRequest(
+        reply_token=event.reply_token,
+        messages=[TextMessage(text=reply_text)]
+        )
+        messaging_api.reply_message(reply_request)
 
       else:
         reply_text = text_match(text)
