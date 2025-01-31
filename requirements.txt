@@ -1,5 +1,4 @@
-app2==0.0.0
-argon2==0.1.10
+argon2-cffi==23.1.0
 beautifulsoup4==4.12.3
 Flask==3.1.0
 Flask_Cors==5.0.0
