@@ -24,7 +24,7 @@ app.register_blueprint(line_bot_bp, url_prefix='/linebot')
 
 
 def run_flask():
-	app.run(debug=True, use_reloader=False)
+	app.run(debug=False, use_reloader=False)
 
 
 async def main():
