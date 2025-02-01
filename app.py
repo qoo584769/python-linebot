@@ -29,10 +29,7 @@ def run_flask():
 
 async def main():
 	# 啟動 WebSocket 伺服器
-	await asyncio.gather(
-		asyncio.to_thread(run_flask),
-		start_websocket_server(),
-	)
+	await asyncio.gather(asyncio.to_thread(run_flask), start_websocket_server())
 
 
 if __name__ == '__main__':

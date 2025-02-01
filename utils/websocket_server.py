@@ -25,6 +25,7 @@ rooms = {}
 
 async def start_websocket_server():
 	port = int(os.environ.get('PORT', 8080))
+	print(port)
 	async with websockets.serve(echo, '', port):
 		print('ws伺服器啟動成功')
 		# 永遠等待
