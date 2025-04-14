@@ -229,13 +229,16 @@ def handle_message(event):
 
 			if response.status_code == 200:
 				reply_text = '啟動成功'
+				reply_request = ReplyMessageRequest(
+					reply_token=event.reply_token, messages=[TextMessage(text=reply_text)]
+				)
+				messaging_api.reply_message(reply_request)
 			else:
 				reply_text = '啟動失敗'
-
-			reply_request = ReplyMessageRequest(
-				reply_token=event.reply_token, messages=[TextMessage(text=reply_text)]
-			)
-			messaging_api.reply_message(reply_request)
+				reply_request = ReplyMessageRequest(
+					reply_token=event.reply_token, messages=[TextMessage(text=reply_text)]
+				)
+				messaging_api.reply_message(reply_request)
 
 		else:
 			reply_text = text_match(text)
